@@ -28,7 +28,7 @@ make it so that when you click the 'add to cart button', whatever is  written in
 
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
-import { getDatabase, ref, push } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js';
+import { getDatabase, ref, push, onValue } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js';
 
 const appSettings = {
     databaseURL: 'https://realtime-database-2dd9e-default-rtdb.firebaseio.com/'
@@ -41,12 +41,74 @@ console.log(app);
 
 const inputFieldEl = document.getElementById('input-field');
 const addButtonEl = document.getElementById('add-button');
-const shoppingList = document.querySelector('.shopping-list');
+const shoppingListEl = document.querySelector('.shopping-list');
 
 addButtonEl.addEventListener('click', function(){
     let inputValue = inputFieldEl.value;
     push(shoppingListInDB, inputValue);
+
+    clearInputFieldEl()
+
+    // appendItemToShoppingListEl(inputValue);
+
     console.log(`${inputValue} push to database`);
 });
+
+/* 
+challenge: 
+Call the onValue funtion with
+shoppingListInDB as the first argument and 
+function(snapshot) {} as the second argument
+*/
+
+onValue(shoppingListInDB, function(snapshot){
+    // let ItemArray = Object.values(snapshot.val());
+        let ItemArray = Object.entries(snapshot.val());
+        console.log('itemArray:',ItemArray)
+
+
+
+    // my approach
+    // console.log(ItemArray);
+    // ItemArray.forEach((item)=> {
+    //     console.log(item)
+    // })
+
+    clearShoppingListEl()
+    for(let i = 0; i<ItemArray.length; i++){
+        // console.log(ItemArray[i]);
+        let currentItem = ItemArray[i];
+        let currentItemID = currentItem[0];
+        let currentItemValue = currentItem[1];
+        
+        appendItemToShoppingListEl(currentItem);
+    }
+    
+    
+})
+
+function clearShoppingListEl(){
+        shoppingListEl.innerHTML = '';
+
+}
+
+function clearInputFieldEl(){
+    inputFieldEl.value = '';
+}
+
+function appendItemToShoppingListEl(item){
+    // const li = document.createElement('li');
+    // li.textContent = itemValue
+    // shoppingListEl.appendChild(li)= `<li>${itemValue}</li>`
+
+    // shoppingListEl.innerHTML += `<li>${itemValue}</li>`
+
+    let itemID = item[0];
+    let itemValue = item[1];
+    const newEl = document.createElement('li');
+    newEl.textContent = itemValue;
+    shoppingListEl.append(newEl);
+
+}
 
 
