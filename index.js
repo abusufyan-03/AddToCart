@@ -82,18 +82,12 @@ onValue(shoppingListInDB, function(snapshot){
         shoppingListEl.innerHTML = `<li class='no-item'>no item here yet...!</li>`
     }
         
-
-
-
     // my approach
     // console.log(ItemArray);
     // ItemArray.forEach((item)=> {
     //     console.log(item)
     // })
-
-    
-    
-    
+ 
 })
 
 function clearShoppingListEl(){
