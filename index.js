@@ -28,7 +28,7 @@ make it so that when you click the 'add to cart button', whatever is  written in
 
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js';
-import { getDatabase, ref, push, onValue } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js';
+import { getDatabase, ref, push, onValue, remove } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js';
 
 const appSettings = {
     databaseURL: 'https://realtime-database-2dd9e-default-rtdb.firebaseio.com/'
@@ -63,8 +63,25 @@ function(snapshot) {} as the second argument
 
 onValue(shoppingListInDB, function(snapshot){
     // let ItemArray = Object.values(snapshot.val());
+
+
+    if(snapshot.exists()){
         let ItemArray = Object.entries(snapshot.val());
         console.log('itemArray:',ItemArray)
+
+        clearShoppingListEl()
+    for(let i = 0; i<ItemArray.length; i++){
+        // console.log(ItemArray[i]);
+        let currentItem = ItemArray[i];
+        let currentItemID = currentItem[0];
+        let currentItemValue = currentItem[1];
+        
+        appendItemToShoppingListEl(currentItem);
+    }
+    } else {
+        shoppingListEl.innerHTML = `<li class='no-item'>no item here yet...!</li>`
+    }
+        
 
 
 
@@ -74,15 +91,7 @@ onValue(shoppingListInDB, function(snapshot){
     //     console.log(item)
     // })
 
-    clearShoppingListEl()
-    for(let i = 0; i<ItemArray.length; i++){
-        // console.log(ItemArray[i]);
-        let currentItem = ItemArray[i];
-        let currentItemID = currentItem[0];
-        let currentItemValue = currentItem[1];
-        
-        appendItemToShoppingListEl(currentItem);
-    }
+    
     
     
 })
@@ -107,6 +116,13 @@ function appendItemToShoppingListEl(item){
     let itemValue = item[1];
     const newEl = document.createElement('li');
     newEl.textContent = itemValue;
+
+
+    newEl.addEventListener('click', function(){
+        let exactLocationOfItemInDB = ref(database, `Expense/${itemID}`);
+        remove(exactLocationOfItemInDB)
+    })
+
     shoppingListEl.append(newEl);
 
 }
