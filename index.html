@@ -13,15 +13,66 @@
 </head>
 
 <body>
-    <div class="container">
-        <img src="assets/cat-removebg.png" alt="cat image">
-        <input type="text" id="input-field" placeholder="bread">
-        <button id="add-button">Add to card</button>
-        <ul class="shopping-list">
+    <section id="add-to-cart-section" style="display: none;">
+        <!-- <p id="loggedin-email"></p> -->
+         <div class="profile">
+            <p id="loggedin-email"></p>
+            <button id="logout-btn">Logout</button>
+         </div>
+        <div class="container">
+            <img src="assets/cat-removebg.png" alt="cat image">
+            <input type="text" id="input-field" placeholder="bread">
+            <button id="add-button">Add to card</button>
+            <ul class="shopping-list">
+            </ul>
+        </div>
+    </section>
 
-        </ul>
+    <!-- login form refactor -->
+     <div id="login-container">
+    <section id="login-container-2">
+            <h1 class="title">Login Your Account</h1>
+            <div class="card">
+                <form class="login-form">
+                    <div class="field">
+                        <label for="login-email">Email</label>
+                        <input class="login-input" id="login-email" type="text" placeholder="Enter Your Email">
+                    </div>
+                    <div class="field">
+                        <label for="login-password">Password</label>
+                        <input class="login-input" id="login-password" type="password" placeholder="Enter Your Password">
+                    </div>
+                    <button class="sub-btn" id="login-submit">Login</button>
+                </form>
+                <p>Don’t have an account? <a href="" id="signup-link">Sign up</a></p>
+            </div>
+    </section>
     </div>
-    <script type="module" src="index.js"></script>
+
+    <!-- Signup form refactor -->
+    <section id="signup-container" style="display: none;">
+        <h1 class="title">Create a new Account</h1>
+        <div class="card">
+            <form class="login-form">
+                <div class="field">
+                    <label for="signup-email">Email</label>
+                    <input class="login-input" id="signup-email" type="text" placeholder="Enter Your Email">
+                </div>
+                <div class="field">
+                    <label for="login-password">Password</label>
+                    <input class="login-input" id="signup-password" type="password" placeholder="Enter Your Password">
+                </div>
+                <button class="sub-btn" id="signup-submit">Signup</button>
+            </form>
+            <p>Already have an account? <a href="" id="login-link">Login</a></p>
+        </div>
+    </section>
+
+
+    <!-- <script type="module" src="index.js"></script> -->
+    <script type="module" src="auth.js"></script>
+    <script type="module" src="cart.js"></script>
+    <script type="module" src="firebase-config.js"></script>
 </body>
 
 </html>
