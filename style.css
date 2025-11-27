@@ -160,6 +160,12 @@ ul li:hover {
   box-shadow: 0 0 0 4px rgba(37,99,235,.15);
 }
 
+.error-message {
+    color: #dc2626;
+    font-size: 14px;
+    font-weight: 600;
+}
+
 .sub-btn {
   width: 100%;
   padding: 12px;

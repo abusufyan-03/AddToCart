@@ -15,6 +15,8 @@ const logoutBtn = document.getElementById('logout-btn');
 const signupEmailInput = document.getElementById('signup-email');
 const signupPasswordInput = document.getElementById('signup-password');
 const signupSubmitBtn = document.getElementById('signup-submit');
+const signupErrorMessage = document.getElementById('signup-error-message');
+const loginErrorMessage = document.getElementById('login-error-message');
  
 
 onAuthStateChanged(auth, (user) => {
@@ -41,6 +43,8 @@ const signupBtnPressed = async (e) => {
         alert('account created successfully')
     } catch (error) {
         console.log(error)
+        // alert(formatErrorMessage(error.code, 'signup'));
+        signupErrorMessage.innerHTML = formatErrorMessage(error.code, 'signup');
     }
 }
 
@@ -57,6 +61,7 @@ const loginSubmitBtnPressed = async (e) => {
         loginPasswordInput.value = '';
     } catch (error) {
         console.log(error);
+        loginErrorMessage.innerHTML = formatErrorMessage(error.code, 'login');
     }
 }
 
@@ -79,4 +84,36 @@ logoutBtn.addEventListener('click', logoutBtnPressed);
 loginSubmitBtn.addEventListener('click', loginSubmitBtnPressed)
 
 export function getCurrentUser(){
+}
+
+const formatErrorMessage = (errorCode, action) => {
+    let message = '';
+    if (action === 'signup') {
+        if (
+            errorCode === 'auth/invalid-email'
+            || errorCode === 'auth/missing-password'
+        ) {
+            message = 'Please Enter a valid Email';
+        } else if (
+            errorCode === 'auth/missing-password' ||
+            errorCode === 'auth/weak-password'
+        ) {
+            message = 'Password must be atleast 6 character long';
+        } else if (
+            errorCode === 'auth/email-already-in-use'
+        ) {
+            message = 'Email is already Taken';
+        }
+    } else if (action === 'login') {
+        if (
+            errorCode === 'auth/invalid-email' ||
+            errorCode === 'auth/missing-password' ||
+            errorCode === 'auth/invalid-credential'
+        ) {
+            message = 'Email or Password is incorrect';
+        } else if (errorCode === 'auth/user-not-found') {
+            message = 'our system was unable to verify your email or password';
+        }
+    }
+    return message;
 }
