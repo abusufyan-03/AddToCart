@@ -7,14 +7,14 @@ const shoppingListEl = document.querySelector('.shopping-list');
 const loggedinEmail = document.getElementById("loggedin-email");
 
 
-// const shoppingListInDB = ref(database, `Expense`);
+// const shoppingListInDB = ref(database, `shoppingItem`);
 
 // let unsubscribe = null
 let addBtnListener = null;
 
 export function initCart(user) {
     loggedinEmail.innerHTML = user.email;
-    const shoppingListInDB = ref(database, `Expense/${user.uid}`);
+    const shoppingListInDB = ref(database, `shoppingItem/${user.uid}`);
 
 
     if(addBtnListener) {
@@ -47,7 +47,7 @@ export function initCart(user) {
     // })
 
     onValue(shoppingListInDB, function (snapshot) {
-        console.log(snapshot.val());
+        console.log('snapshot',snapshot.val());
         if (snapshot.exists()) {
             let arrayItem = Object.entries(snapshot.val())
             console.log(arrayItem)
@@ -70,7 +70,7 @@ export function initCart(user) {
         shoppingListEl.appendChild(newEl)
 
         newEl.addEventListener('click', function () {
-            let exactLocationOfItemInDb = ref(database, `Expense/${user.uid}/${arrayItemID}`);
+            let exactLocationOfItemInDb = ref(database, `shoppingItem/${user.uid}/${arrayItemID}`);
             remove(exactLocationOfItemInDb)
         })
 
