@@ -23,9 +23,7 @@ After completing the course project, I **extended it on my own** by adding:
 
 This helped me understand how authentication, real-time data, and UI state work together in a real-world app.
 
-
-
-## Live Link 
+# Live link:
 [Add to Cart](https://add-to-cart-sasuke.netlify.app/)
 
 ##  Features
@@ -121,6 +119,3 @@ These are **intentional trade-offs** for simplicity in v1.
 * User-based data isolation
 * Real-time database listeners
 * Clean separation of concerns
-
-
----
