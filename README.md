@@ -23,7 +23,9 @@ After completing the course project, I **extended it on my own** by adding:
 
 This helped me understand how authentication, real-time data, and UI state work together in a real-world app.
 
-# Live link:
+
+
+## Live Link 
 [Add to Cart](https://add-to-cart-sasuke.netlify.app/)
 
 ##  Features
@@ -77,6 +79,15 @@ This avoids:
 ## 🔐 Authentication Flow (How login persists)
 
 Firebase automatically **persists the authentication session** in the browser.
+### What happens after refresh or reopening the app?
+
+1. Page reloads
+2. Firebase initializes
+3. Firebase checks stored session
+4. `onAuthStateChanged` fires
+5. Logged-in user is restored automatically
+
+This is similar to how apps like Gmail or WhatsApp Web work.
 
 
 ---
